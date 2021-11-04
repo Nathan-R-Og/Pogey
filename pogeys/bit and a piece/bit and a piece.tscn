@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://pogeys/bit and a piece/bit and a piece.png" type="Texture" id=1]
+
+[node name="bit and a piece" type="Node2D"]
+
+[node name="bit and a piece" type="Sprite" parent="."]
+texture = ExtResource( 1 )

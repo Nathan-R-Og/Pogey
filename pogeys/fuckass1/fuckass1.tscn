@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://pogeys/fuckass1/fuckass1.png" type="Texture" id=1]
+
+[node name="fuckass1" type="Node2D"]
+
+[node name="fuckass1" type="Sprite" parent="."]
+texture = ExtResource( 1 )

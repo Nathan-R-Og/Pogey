@@ -42,7 +42,7 @@ const evDrops = [[["Bulbasaur", "normal"], ["SP ATK", 1]],
 [["Charmeleon", "normal"], ["SP ATK", 2], ["SPD", 1]],
 [["Squirtle", "normal"], ["DEF", 1]],
 
-[["fuckass1", "normal"], ["DEF", 3]],
+[["fuckass1", "normal"], ["SP ATK", 0]],
 [["bit and a piece", "normal"], ["ATK", 3]],
 [["SimSun", "normal"], ["SPD", 3]],
 
@@ -52,7 +52,7 @@ const evDrops = [[["Bulbasaur", "normal"], ["SP ATK", 1]],
 
 const baseStats = [
 ["fuckass1",
-["ATK", 20], ["DEF", 50], ["SP ATK", 20], ["SP DEF", 50], ["SPD", 40], ["HP", 70]]
+["ATK", 20], ["DEF", 50], ["SP ATK", 50], ["SP DEF", 50], ["SPD", 40], ["HP", 70]]
 
 
 
@@ -108,7 +108,7 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		var curr = 0
-		_calcBases("SP DEF", curr, pogey)
+		_calcBases("SP ATK", curr, pogey)
 		
 	if Input.is_action_just_pressed("ui_select"):
 		var curr = 0
@@ -131,7 +131,7 @@ func baseCalc(idx, array):
 		
 		if array[idx][3][iterateIV][1] == null:
 			rng.randomize()
-			array[idx][3][iterateIV][1] = rng.randi_range(0,31)
+			array[idx][3][iterateIV][1] = 31
 		iterateIV += 1
 
 
@@ -216,13 +216,22 @@ func _calcBases(stat, idx, array):
 	
 	#find the base for the stat
 	var UseBase = 0
-	var findStat = 0
-	while findStat < array[idx][6].size():
-		var statNamee = array[idx][6][findStat][0]
-		if statNamee == stat:
-			UseBase = array[idx][6][findStat][1]
+	var findNameBase = 0
+	var found = false
+	while findNameBase < baseStats.size():
+		var naeeeme = baseStats[findNameBase][0]
+		if naeeeme == pogeymanName:
+			var findStat = 1
+			while findStat < baseStats[findNameBase].size():
+				if baseStats[findNameBase][findStat][0] == stat:
+					UseBase = baseStats[findNameBase][findStat][1]
+					found = true
+					break
+				findStat += 1
 			break
-		findStat += 1
+		if found == true:
+			break
+		findNameBase += 1
 
 
 	var iterateEV = 0

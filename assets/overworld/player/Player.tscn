@@ -1,0 +1,89 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/you/norm/bp/normbp.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://assets/overworld/player/roomMove.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("PlayerBody:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, -5, -0.25, 0, 0.25, 0, 5, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.4, 0.5, 0.6, 0.7, 0.8 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("PlayerBody:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, -64, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 0.5, 0.8 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:extendedY")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( -64, -0.25, 0, 0.25, 0, -64, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.7, 0.8 )
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerBody:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:extendedY")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[node name="Player" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="PlayerBody" type="KinematicBody2D" parent="."]
+
+[node name="PlayerSprite" type="AnimatedSprite" parent="PlayerBody"]
+scale = Vector2( 2, 2 )
+frames = ExtResource( 1 )
+animation = "down"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerBody"]
+position = Vector2( 0, -8 )
+polygon = PoolVector2Array( 19.96, 32, 19.96, 20, 12, 12, -12, 12, -19.96, 20, -19.96, 32, -12, 40, 12, 40 )
+
+[node name="interact" type="Area2D" parent="PlayerBody"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerBody/interact"]
+polygon = PoolVector2Array( 8, 0, 0, -8, -8, 0, 0, 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/hop = SubResource( 1 )
+anims/reset = SubResource( 2 )
+
+[connection signal="body_entered" from="PlayerBody/interact" to="." method="_on_interact_body_entered"]
+[connection signal="body_exited" from="PlayerBody/interact" to="." method="_on_interact_body_exited"]

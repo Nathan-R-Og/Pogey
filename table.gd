@@ -23,6 +23,10 @@ var pogey = [[
 0
 ,#pokerus
 false
+,#nickname
+"BallMaster"
+,#held
+0
 
 
 

@@ -1,9 +1,16 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Sprites/you/norm/bp/normbp.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://assets/overworld/player/roomMove.gd" type="Script" id=2]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=2]
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("PlayerBody:position:x")
 tracks/0/interp = 1
@@ -35,7 +42,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.7, 0.8 )
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 length = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("PlayerBody:position")
@@ -69,21 +76,26 @@ script = ExtResource( 2 )
 
 [node name="PlayerSprite" type="AnimatedSprite" parent="PlayerBody"]
 scale = Vector2( 2, 2 )
-frames = ExtResource( 1 )
-animation = "down"
+frames = SubResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerBody"]
 position = Vector2( 0, -8 )
 polygon = PoolVector2Array( 19.96, 32, 19.96, 20, 12, 12, -12, 12, -19.96, 20, -19.96, 32, -12, 40, 12, 40 )
+disabled = true
 
 [node name="interact" type="Area2D" parent="PlayerBody"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerBody/interact"]
 polygon = PoolVector2Array( 8, 0, 0, -8, -8, 0, 0, 8 )
 
+[node name="Area2D" type="Area2D" parent="PlayerBody"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerBody/Area2D"]
+polygon = PoolVector2Array( -17.7871, -21.3039, -52.2386, -6.20188, -55.5421, 26.3618, -49.4069, 54.2061, -7.87646, 85.8259, 24.2153, 75.9152, 51.5876, 53.7341, 75.1845, 22.1143, 72.3528, -9.0335, 34.1259, -25.5513 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/hop = SubResource( 1 )
-anims/reset = SubResource( 2 )
+anims/hop = SubResource( 2 )
+anims/reset = SubResource( 3 )
 
 [connection signal="body_entered" from="PlayerBody/interact" to="." method="_on_interact_body_entered"]
 [connection signal="body_exited" from="PlayerBody/interact" to="." method="_on_interact_body_exited"]

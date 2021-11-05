@@ -10,22 +10,21 @@ onready var character = get_node(characterPath)
 export var mainPath = NodePath()
 onready var main = get_node(mainPath)
 
+func _ready():
+	var mainBody = main.get_node("PlayerBody")
+	var mainStop = mainBody.get_node("Area2D")
+	mainStop.connect("body_entered", character, "EnterPlayerRange")
+	mainStop.connect("body_exited", character, "ExitPlayerRange")
+
 func _process(delta):
 	
+	var charPos = character.get_node("PlayerBody").global_position
+	var mainBody = main.get_node("PlayerBody")
+	var mainPos = mainBody.global_position
 	
-	var charPos = character.global_position
-	var mainPos = main.get_node("PlayerBody").global_position
-	
-	var distance = 280
-	
-	
-	var dist = charPos - mainPos
-	var ta = atan2(dist.y,dist.x)
-	var tance = Vector2()
-	tance.x = cos(ta)
-	tance.y = sin(ta)
-	tance *= distance
-	var add =-tance + dist
-	var new_path = nav_2d.get_simple_path(charPos, charPos + add)
+
+
+	var new_path = nav_2d.get_simple_path(charPos, mainPos)
 	line_2d.points = new_path
 	character.path = new_path
+

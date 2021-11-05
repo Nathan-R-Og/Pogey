@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
+[ext_resource path="res://assets/overworld/player2/fllow.gd" type="Script" id=1]
 [ext_resource path="res://navTest.gd" type="Script" id=2]
 [ext_resource path="res://assets/overworld/player/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/overworld/player2/Player2.tscn" type="PackedScene" id=5]
@@ -16,7 +17,7 @@ extents = Vector2( 34.2271, 34.2542 )
 script = ExtResource( 2 )
 navPath = NodePath("Navigation2D")
 linePath = NodePath("Line2D")
-characterPath = NodePath("obj/Player2/Player2")
+characterPath = NodePath("obj/Player2")
 mainPath = NodePath("obj/Player")
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
@@ -40,10 +41,13 @@ shape = SubResource( 2 )
 position = Vector2( 292.448, 60.0157 )
 
 [node name="Player2" type="Node2D" parent="obj"]
+script = ExtResource( 1 )
+MainPath = NodePath("../Player")
 
-[node name="Player2" parent="obj/Player2" instance=ExtResource( 5 )]
-record = 64
-MainPath = NodePath("../../Player")
+[node name="PlayerBody" parent="obj/Player2" instance=ExtResource( 5 )]
+script = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+
+[editable path="obj/Player"]

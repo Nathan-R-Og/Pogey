@@ -96,18 +96,18 @@ func _process(delta):
 				angler = abs(-(rad2deg(atan2(playerInput.y,-playerInput.x)) + 180))
 				
 				
-				if playerInput != Vector2(0.0,0.0):
-					directionality()
-					var iterateAnim = 0
-					while iterateAnim < $PlayerBody/PlayerSprite.frames.get_animation_names().size():
-						var TempSpeed = 0.0
-						match runSet:
-							1:
-								TempSpeed = 5.0
-							2:
-								TempSpeed = 7.5
-						$PlayerBody/PlayerSprite.frames.set_animation_speed($PlayerBody/PlayerSprite.frames.get_animation_names()[iterateAnim], TempSpeed)
-						iterateAnim += 1
+				#if playerInput != Vector2(0.0,0.0):
+				#	directionality()
+				#	var iterateAnim = 0
+				#	while iterateAnim < $PlayerBody/PlayerSprite.frames.get_animation_names().size():
+				#		var TempSpeed = 0.0
+				#		match runSet:
+				#			1:
+				#				TempSpeed = 5.0
+				#			2:
+				#				TempSpeed = 7.5
+				#		$PlayerBody/PlayerSprite.frames.set_animation_speed($PlayerBody/PlayerSprite.frames.get_animation_names()[iterateAnim], TempSpeed)
+				#		iterateAnim += 1
 				
 				#if playerInput.x > 0 and playerInput.y > 0:
 					#if playerInput.x == playerInput.y:
